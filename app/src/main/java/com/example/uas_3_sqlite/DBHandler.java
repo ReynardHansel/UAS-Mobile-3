@@ -70,6 +70,12 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.close();
         return studentModalArrayList;
     }
+    
+    public void deleteStudent(int studentId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, "id=?", new String[]{String.valueOf(studentId)});
+        db.close();
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

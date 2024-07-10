@@ -14,17 +14,23 @@ import java.util.ArrayList;
 public class StudentRVAdapter extends RecyclerView.Adapter<StudentRVAdapter.ViewHolder> {
     private ArrayList<StudentModal> studentModalArrayList;
     private Context context;
+    private OnStudentClickListener listener; // Dipake buat nge delete ntar
 
-    public StudentRVAdapter(ArrayList<StudentModal> studentModalArrayList, Context context) {
+    public interface OnStudentClickListener {
+        void onStudentClick(int position);
+    }
+
+    public StudentRVAdapter(ArrayList<StudentModal> studentModalArrayList, Context context, OnStudentClickListener listener) {
         this.studentModalArrayList = studentModalArrayList;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_rv_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, listener);
     }
 
     @Override
@@ -45,13 +51,22 @@ public class StudentRVAdapter extends RecyclerView.Adapter<StudentRVAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView studentIdTV, studentNamaTV, studentNimTV, studentIpkTV, studentMatkulTV;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final OnStudentClickListener listener) {
             super(itemView);
             studentIdTV = itemView.findViewById(R.id.idTVStudentId);
             studentNamaTV = itemView.findViewById(R.id.idTVStudentNama);
             studentNimTV = itemView.findViewById(R.id.idTVStudentNim);
             studentIpkTV = itemView.findViewById(R.id.idTVStudentIpk);
             studentMatkulTV = itemView.findViewById(R.id.idTVStudentMatkul);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null && getAdapterPosition() != RecyclerView.NO_POSITION) {
+                        listener.onStudentClick(getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 }
