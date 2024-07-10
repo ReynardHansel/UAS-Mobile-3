@@ -50,7 +50,8 @@ public class StudentModal {
     }
 
     // Constructor
-    public StudentModal(String nama, long nim, float ipk, String matkul) {
+    public StudentModal(int id, String nama, long nim, float ipk, String matkul) {
+        this.id = id;
         this.nama = nama;
         this.nim = nim;
         this.ipk = ipk;

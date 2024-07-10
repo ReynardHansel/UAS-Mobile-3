@@ -51,13 +51,15 @@ public class DBHandler extends SQLiteOpenHelper {
         ArrayList<StudentModal> studentModalArrayList = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
+                int idIndex = cursor.getColumnIndex(ID_COL); // Get the index of the ID column
                 int namaIndex = cursor.getColumnIndex(NAMA_COL);
                 int nimIndex = cursor.getColumnIndex(NIM_COL);
                 int ipkIndex = cursor.getColumnIndex(IPK_COL);
                 int matkulIndex = cursor.getColumnIndex(MATKUL_COL);
-        
-                if (namaIndex != -1 && nimIndex != -1 && ipkIndex != -1 && matkulIndex != -1) {
+    
+                if (idIndex != -1 && namaIndex != -1 && nimIndex != -1 && ipkIndex != -1 && matkulIndex != -1) {
                     studentModalArrayList.add(new StudentModal(
+                        cursor.getInt(idIndex), // Fetch the ID
                         cursor.getString(namaIndex),
                         cursor.getLong(nimIndex),
                         cursor.getFloat(ipkIndex),

@@ -30,6 +30,7 @@ public class StudentRVAdapter extends RecyclerView.Adapter<StudentRVAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         StudentModal modal = studentModalArrayList.get(position);
+        holder.studentIdTV.setText(String.valueOf(modal.getId()));
         holder.studentNamaTV.setText(modal.getNama());
         holder.studentNimTV.setText(String.valueOf(modal.getNim()));
         holder.studentIpkTV.setText(String.valueOf(modal.getIpk()));
@@ -42,10 +43,11 @@ public class StudentRVAdapter extends RecyclerView.Adapter<StudentRVAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView studentNamaTV, studentNimTV, studentIpkTV, studentMatkulTV;
+        private TextView studentIdTV, studentNamaTV, studentNimTV, studentIpkTV, studentMatkulTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            studentIdTV = itemView.findViewById(R.id.idTVStudentId);
             studentNamaTV = itemView.findViewById(R.id.idTVStudentNama);
             studentNimTV = itemView.findViewById(R.id.idTVStudentNim);
             studentIpkTV = itemView.findViewById(R.id.idTVStudentIpk);
